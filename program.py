@@ -95,3 +95,28 @@ test_sequences = tokenizer.texts_to_sequences(x_test)
 # Add padding can either be maxlen = 4406 or smaller number maxlen = 40 seems to work well based on results
 padded_train = pad_sequences(train_sequences,maxlen = 40, padding = 'post', truncating = 'post')
 padded_test = pad_sequences(test_sequences,maxlen = 40, truncating = 'post') 
+
+# Sequential Model
+model = Sequential()
+
+# embeddidng layer
+model.add(Embedding(total_words, output_dim = 128))
+# model.add(Embedding(total_words, output_dim = 240))
+
+
+
+# Bi-Directional RNN and LSTM
+model.add(Bidirectional(LSTM(128)))
+
+# Dense layers
+model.add(Dense(128, activation = 'relu'))
+model.add(Dense(1,activation= 'sigmoid'))
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+model.summary()
+
+y_train = np.asarray(y_train)
+
+model.fit(padded_train, y_train, batch_size = 64, validation_split = 0.1, epochs = 2)
+
+# make the prediction
+pred = model.predict(padded_test)
