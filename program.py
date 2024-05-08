@@ -61,3 +61,28 @@ df['clean'] = df['original'].apply(preprocess)
 
 # join the words into a string
 df['clean_joined'] = df['clean'].apply(lambda x: " ".join(x))
+
+# plot the number of samples in 'subject'
+plt.figure(figsize = (8, 8))
+sns.countplot(y = "subject", data = df)
+
+# wordcloud (real)
+plt.figure(figsize = (20,20)) 
+wc = WordCloud(max_words = 2000 , width = 1600 , height = 800 , stopwords = stop_words).generate(" ".join(df[df.isfake == 1].clean_joined))
+plt.imshow(wc, interpolation = 'bilinear')
+
+# wordcloud (fake)
+plt.figure(figsize = (20,20)) 
+wc = WordCloud(max_words = 2000 , width = 1600 , height = 800 , stopwords = stop_words).generate(" ".join(df[df.isfake == 0].clean_joined))
+plt.imshow(wc, interpolation = 'bilinear')
+
+# visualize the distribution of number of words in a text
+import plotly.express as px
+fig = px.histogram(x = [len(nltk.word_tokenize(x)) for x in df.clean_joined], nbins = 100)
+fig.show()
+
+# split data into test and train 
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(df.clean_joined, df.isfake, test_size = 0.2)
+from nltk import word_tokenize
+
