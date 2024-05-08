@@ -42,3 +42,15 @@ df['original'] = df['title'] + ' ' + df['text']
 
 # download stopwords
 nltk.download("stopwords")
+
+# download stopwords
+nltk.download("stopwords")
+
+# Remove stopwords and remove words with 2 or less characters
+def preprocess(text):
+    result = []
+    for token in gensim.utils.simple_preprocess(text):
+        if token not in gensim.parsing.preprocessing.STOPWORDS and len(token) > 3 and token not in stop_words:
+            result.append(token)
+            
+    return result
