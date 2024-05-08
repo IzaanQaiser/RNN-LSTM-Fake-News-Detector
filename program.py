@@ -86,3 +86,12 @@ from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(df.clean_joined, df.isfake, test_size = 0.2)
 from nltk import word_tokenize
 
+# Create a tokenizer to tokenize the words and create sequences of tokenized words
+tokenizer = Tokenizer(num_words = total_words)
+tokenizer.fit_on_texts(x_train)
+train_sequences = tokenizer.texts_to_sequences(x_train)
+test_sequences = tokenizer.texts_to_sequences(x_test)
+
+# Add padding can either be maxlen = 4406 or smaller number maxlen = 40 seems to work well based on results
+padded_train = pad_sequences(train_sequences,maxlen = 40, padding = 'post', truncating = 'post')
+padded_test = pad_sequences(test_sequences,maxlen = 40, truncating = 'post') 
