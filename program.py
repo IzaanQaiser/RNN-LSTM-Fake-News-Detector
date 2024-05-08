@@ -120,3 +120,18 @@ model.fit(padded_train, y_train, batch_size = 64, validation_split = 0.1, epochs
 
 # make the prediction
 pred = model.predict(padded_test)
+
+# if the predicted value is >0.5 it is real else it is fake
+prediction = []
+for i in range(len(pred)):
+    if pred[i].item() > 0.5:
+        prediction.append(1)
+    else:
+        prediction.append(0)
+
+# calculating the accuracy
+from sklearn.metrics import accuracy_score
+
+accuracy = accuracy_score(list(y_test), prediction)
+
+print("Model Accuracy : ", accuracy)
