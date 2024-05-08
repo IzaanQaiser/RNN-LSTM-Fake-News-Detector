@@ -54,3 +54,10 @@ def preprocess(text):
             result.append(token)
             
     return result
+
+
+# Apply the function to the dataframe
+df['clean'] = df['original'].apply(preprocess)
+
+# join the words into a string
+df['clean_joined'] = df['clean'].apply(lambda x: " ".join(x))
