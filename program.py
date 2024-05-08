@@ -24,3 +24,18 @@ from tensorflow.keras.layers import Dense, Flatten, Embedding, Input, LSTM, Conv
 from tensorflow.keras.models import Model
 from jupyterthemes import jtplot
 jtplot.style(theme='monokai', context='notebook', ticks=True, grid=False)
+
+# load the data
+df_true = pd.read_csv("True.csv")
+df_fake = pd.read_csv("Fake.csv")
+
+# add a target class column to indicate whether the news is real or fake
+df_true['isfake'] = 0
+df_fake['isfake'] = 1
+
+# Concatenate Real and Fake News & Clean Data
+df = pd.concat([df_true, df_fake]).reset_index(drop = True)
+df.drop(columns = ['date'], inplace = True)
+
+# combine title and text together
+df['original'] = df['title'] + ' ' + df['text']
