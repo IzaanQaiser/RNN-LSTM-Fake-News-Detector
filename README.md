@@ -3,7 +3,7 @@ AI Fake News Detector:
 Project Overview:
 This project aims to develop an AI Fake News Detector using Recurrent Neural Networks (RNN), specifically Long Short-Term Memory (LSTM) networks. The detector is designed to analyze textual data and classify news articles as either real or fake with a high degree of accuracy.
 
-Tasks to Completed:
+Tasks to be Completed:
 
 1. Import Libraries and Datasets: Necessary libraries and datasets were imported to facilitate data processing and model development.
 2. Perform Exploratory Data Analysis (EDA): Exploratory analysis was conducted to gain insights into the structure and characteristics of the dataset.
