@@ -39,3 +39,6 @@ df.drop(columns = ['date'], inplace = True)
 
 # combine title and text together
 df['original'] = df['title'] + ' ' + df['text']
+
+# download stopwords
+nltk.download("stopwords")
